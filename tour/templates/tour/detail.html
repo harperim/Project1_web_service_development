@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- bootstrap css -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <!-- bootstrap-icon css -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+</head>
+<body>
+  <ul>
+    <h2>{{ product.title }} </h2>
+
+    <h5 class="m-2">작성자 - {{ product.writer.username }}</h5>
+
+    <h5 class="m-3">평점 : {{ avgscore }}  ({{ product.reviews.count }}개의 리뷰)</h5>
+    <h6 class="m-3"><i class='bi bi-heart-fill' style='color: red'></i> {{ product.wishlist.count }}명이 이 상품을 좋아합니다.</h6>
+
+    <h5 class="m-3"> <span class="badge bg-secondary">투어할 나라 / 지역</span></h5>
+    <p class="m-3"> {{ product.country }} {{ product.region }}</p>
+
+    <h5 class="m-3"><span class="badge bg-secondary">투어 일정</span></h5>
+    <p class="m-3"> {{ product.content | linebreaksbr }}</p>
+
+    <h5 class="m-3"><span class="badge bg-secondary">테마</span></h5>
+    <p class="m-3"> {{ product.theme }}</p>
+
+    <!-- 투어 요청하기 -->
+    <h5 class="m-3"><span class="badge bg-primary">투어 요청하기</span></h5>
+    {% include 'tour/tour_proposal.html' %}
+
+    <!-- 찜 버튼 -->
+    <h5 class="m-3"><span class="badge bg-secondary">찜하기</span></h5>
+    {% include 'tour/detail_ui.html' %}
+
+    <!-- 댓글 UI -->
+    <h5 class="m-3"><span class="badge bg-secondary">리뷰</span></h5>
+    {% include 'tour/detail_review_ui.html' %}
+
+    
+
+    
+
+    {% comment %} {% if user.is_authenticated %}
+
+    <div style="display: inline-block;">
+      <form action="{% url 'tour:wishlist' product.pk %}" method="POST">
+        {% csrf_token %}
+        
+        {% if is_wishlist %}
+        <button class='btn btn-primary'>찜 취소</button>
+        {% else %}
+        <button class='btn btn-primary'>찜</button>
+        {% endif %}
+      </form>
+    </div>
+
+    {% endif %} {% endcomment %}
+
+    
+  </ul>
+
+  <!-- bootstrap js -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>
+

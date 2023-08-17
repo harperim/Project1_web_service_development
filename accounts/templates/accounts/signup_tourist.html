@@ -1,0 +1,10 @@
+<form method="POST">
+    {% csrf_token %}
+    
+    {{ form.as_p }}
+    <div>
+      <button class='btn btn-primary'>투어리스트로 가입하기</button>
+    </div>
+</form>
+
+

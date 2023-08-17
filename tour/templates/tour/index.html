@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+
+<!-- 가이드 정보 -->
+<ul>
+  <h2 class="mx-3 my-5 d-flex justify-content-center">가이드를 선택해보세요!</h2>
+  <ul style="display: flex; flex-wrap: wrap;">
+    {% for product in page_obj %}
+    
+    <div style="margin: 0 16px">
+      <div class="row col-sm-6 card m-3" style="width: 18rem;">
+        {% comment %} <img src="{{ product.image.url }}" class="card-img-top" alt="..."> {% endcomment %}
+        <div class="card-body" style="margin: 0 20px">
+          <h5 class="card-title">{{ product.title }}</h5>
+          <h6 class="card-subtitle mb-2 text-body-secondary">{{ product.writer }}</h6>
+          <p class="card-text"><i class='bi bi-star-fill' style='color: yellow'></i> {{ avgscore }}  ({{ product.reviews.count }}개의 리뷰)</p>
+          <a href="{% url 'tour:product_detail' product.pk %}" class="position-bottom btn btn-secondary">자세히 보기</a>
+        </div>
+      </div>
+    </div>
+       
+  
+    {% endfor %}
+  </ul>
+</ul>
+<!-- pagination 네비게이터 -->
+<div class="mt-3 d-flex justify-content-center">
+  {% bootstrap_pagination page_obj %}
+</div>
+
+{% comment %} <h2>Review</h2>
+
+<ul>
+  {% for product in page_obj %}
+  <li>
+     <a href="{% url 'accounts:profile' product.writer.username %}">
+      {{ product.writer.username }}
+    </a> >> 
+    <a href="{% url 'tour:product_detail' product.pk %}">
+      {{ product.content }}
+    </a> ({{ product.reviews.count }})
+  </li>
+  {% endfor %}
+</ul>
+
+<!-- pagination 네비게이터 -->
+<div class="mt-3 d-flex justify-content-center">
+  {% bootstrap_pagination page_obj %}
+</div> {% endcomment %}
+
+
+{% endblock content %}
+
+
+

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    {% if searched %}
+        <h2> 검색하신 {{searched}} 정보입니다. </h2>
+        <br>
+        {% for product in products %}  <!-- 검색 결과 여러개이기 때문에 반복문 사용-->
+
+            {{ product.title }}
+            {{ product.content }}
+            {{ product.writer }}
+            {{ product.country }}
+            {{ product.region }}
+
+        {% endfor %}
+
+    {% else %}  <!-- 검색창에 아무것도 입력하지 않았을 경우-->
+        <h2> 찾고 있는 나라/지역명 또는 가이드 이름을 검색해주세요.</h2>
+    {% endif %}
+
+{% endblock content %}
+
+
+

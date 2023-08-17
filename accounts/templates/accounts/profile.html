@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- bootstrap css -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <!-- bootstrap-icon css -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+</head>
+<body>
+  <ul>
+    <h2 class="mx-3 my-5">{{ profile_user.username }} 의 프로필 - {{profile_user.group}}</h2>
+
+    {% for group in groups %}
+    {% if group.name == 'guide' %}
+      <div>
+        나를 찜한 유저: {{ profile_user.tourists.count }}
+      </div>
+    {% else %}
+      <div>
+        내가 찜한 가이드: {{ profile_user.guides.count }}
+      </div>
+    {% endif %}
+    {% endfor %}
+
+
+    <h3 class="mx-3 my-3">찜한 상품</h3>
+    <ul>
+      {% for product in profile_user.wish_products.all %}
+      <li>
+        <a href="{% url 'tour:product_detail' product.pk %}">
+          {{ product.title }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <hr>
+
+    <h3 class="mx-3 my-3">작성한 후기</h3>
+    <ul>
+      {% for review in profile_user.reviews.all %}
+      <li>
+        <a href="{% url 'tour:product_detail' review.product.pk %}">
+          {{ review.content }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+
+    {% include 'accounts/profile_delete.html' %}
+
+
+  </ul>
+
+  <!-- bootstrap js -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+
+

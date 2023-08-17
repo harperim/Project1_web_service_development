@@ -1,0 +1,22 @@
+
+{% if user == product.writer %}
+{% for group in user.groups.all %}
+{% if group.name == 'guide' %}
+<div>
+    <form action="{% url 'tour:accept_proposal' proposal.pk %}" method="POST">
+        <div>
+            <button>수락</button>
+        </div>
+    </form>
+
+    <form action="{% url 'tour:reject_proposal' proposal.pk %}" method="POST">
+        <div>
+            <button>거절</button>
+        </div>
+    </form>
+</div>
+
+
+{% endif %}
+{% endfor %}
+{% endif %}

@@ -1,0 +1,13 @@
+
+{% for group in user.groups.all %}
+{% if group.name == 'tourist' %}
+
+<div>
+    <form action="{% url 'tour:proposal_tour' proposal.pk %}" method="POST">
+        {% csrf_token %}
+        <button>투어 요청하기</button>
+    </form>
+</div>
+
+{% endif %}
+{% endfor %}

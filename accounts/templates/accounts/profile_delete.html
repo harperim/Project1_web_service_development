@@ -1,0 +1,17 @@
+<!-- accounts/templates/accounts/profile_delete.html -->
+
+
+{% if user.is_authenticated and profile_user == user %}
+
+<ul>
+  <div>
+    <form action="{% url 'accounts:delete' profile_user.username %}" method="POST">
+      {% csrf_token %}
+      <button class='btn btn-danger mx-1 my-5'  onclick="return confirm('정말 탈퇴 하시겠습니까?')">탈퇴하기</button>
+      
+    </form>
+  </div>
+</ul>
+
+
+{% endif %}

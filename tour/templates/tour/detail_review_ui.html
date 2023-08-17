@@ -1,0 +1,57 @@
+<!-- detail_review_ui.html -->
+
+{% load bootstrap5 %}
+
+
+<ul>
+  {% for review in reviews %}
+  
+  <li>
+    <a href="{% url 'accounts:profile' review.writer.username %}">
+      {{ review.writer.username }}
+    </a>
+    > {{ review.content }} [{{ review.score }}점] - {{ review.date }}
+  </li>
+  
+  {% endfor %}
+</ul>
+
+<hr>
+
+<!-- 리뷰 작성 -->
+{% if user.is_authenticated %}
+{% if user != product.writer %}
+<p>
+  <form action="{% url 'tour:create_review' product.pk %}" method="POST">
+    {% csrf_token %}
+    {% bootstrap_form form%}
+    <button class='btn btn-secondary'>작성</button>
+  </form>
+</p>
+{% endif %}
+{% endif %}
+
+<hr>
+
+<!-- 리뷰 삭제 -->
+<ul>
+  {% for review in reviews %}
+  <li>
+    <a href="{% url 'accounts:profile' review.writer.username %}">
+      {{ review.writer.username }}
+    </a>
+    > {{ review.content }}
+
+    {% if user == review.writer %}
+    <form 
+      action="{% url 'tour:delete_review' product.pk review.pk %}" 
+      method="POST"
+      style="display: inline-block;">
+      {% csrf_token %}
+      <button class='btn btn-danger' onclick="return confirm('삭제하시겠습니까?')">삭제</button>
+    </form>
+    {% endif %}
+
+  </li>
+  {% endfor %}
+</ul>
